@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.1rem;
+  color: #64748b;
+  background: #f8fafc;
+}
+
+/* Trust score color utilities */
+.trust-safe     { color: #16a34a; background: #f0fdf4; border-color: #86efac; }
+.trust-suspicious { color: #d97706; background: #fffbeb; border-color: #fcd34d; }
+.trust-likely_scam { color: #dc2626; background: #fef2f2; border-color: #fca5a5; }
+.trust-confirmed_scam { color: #7f1d1d; background: #fef2f2; border-color: #ef4444; }
+
+/* Score ring colours */
+.score-safe { stroke: #16a34a; }
+.score-suspicious { stroke: #d97706; }
+.score-likely_scam { stroke: #dc2626; }
+.score-confirmed_scam { stroke: #7f1d1d; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* Animation */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+.animate-pulse { animation: pulse 2s ease-in-out infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
