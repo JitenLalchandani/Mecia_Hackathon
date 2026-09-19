@@ -74,7 +74,7 @@ cp backend/.env.example backend/.env
 Edit `backend/.env`:
 
 ```env
-PORT=5000
+PORT=5001
 NODE_ENV=development
 MONGODB_URI=mongodb://localhost:27017/cybertwin
 JWT_SECRET=your_long_random_secret_here
@@ -102,7 +102,7 @@ Demo accounts created:
 ### 4. Run the project
 
 ```bash
-# From root — starts backend (port 5000) + frontend (port 3000)
+# From root — starts backend (port 5001) + frontend (port 3000)
 npm run dev
 ```
 

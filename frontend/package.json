@@ -21,7 +21,7 @@
     "generate-icons": "node scripts/generate-icons.js",
     "generate-favicon": "node scripts/generate-favicon.js"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5001",
   "devDependencies": {
     "sharp": "^0.32.4",
     "png-to-ico": "^1.0.0"

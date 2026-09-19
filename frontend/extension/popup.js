@@ -3,8 +3,8 @@ const status = document.getElementById('status');
 const resultEl = document.getElementById('result');
 
 const BACKEND = (chrome && chrome.runtime && chrome.runtime.getManifest)
-  ? (chrome.runtime.getManifest().content_security_policy || 'http://localhost:5000')
-  : 'http://localhost:5000';
+  ? (chrome.runtime.getManifest().content_security_policy || 'http://localhost:5001')
+  : 'http://localhost:5001';
 
 async function getSelectedText() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -34,7 +34,7 @@ scanBtn.addEventListener('click', async () => {
   status.textContent = 'Scanning…';
 
   try {
-    const resp = await fetch('http://localhost:5000/api/public/scan', {
+    const resp = await fetch('http://localhost:5001/api/public/scan', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, profileType: 'professional' })
