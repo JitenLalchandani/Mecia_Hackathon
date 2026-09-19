@@ -564,7 +564,26 @@
   </div>
 </div>
 
-<!-- (student, pro, teen shells preserved here — full markup kept) -->
+<div id="student-shell" class="profile-shell">
+  <div style="max-width:900px;margin:80px auto 0;padding:32px 24px;color:#e2e8f0;font-family:Inter,sans-serif;">
+    <h2 style="font-size:32px;margin-bottom:12px;color:#c4b5fd;">Student profile</h2>
+    <p style="font-size:18px;line-height:1.7;color:#cbd5e1;">This profile is ready for the student-focused scam education experience.</p>
+  </div>
+</div>
+
+<div id="pro-shell" class="profile-shell">
+  <div style="max-width:900px;margin:80px auto 0;padding:32px 24px;color:#e2e8f0;font-family:Inter,sans-serif;">
+    <h2 style="font-size:32px;margin-bottom:12px;color:#67e8f9;">Professional profile</h2>
+    <p style="font-size:18px;line-height:1.7;color:#cbd5e1;">This profile is ready for enterprise-grade phishing and impersonation checks.</p>
+  </div>
+</div>
+
+<div id="teen-shell" class="profile-shell">
+  <div style="max-width:900px;margin:80px auto 0;padding:32px 24px;color:#e2e8f0;font-family:Inter,sans-serif;">
+    <h2 style="font-size:32px;margin-bottom:12px;color:#f9a8d4;">Teen profile</h2>
+    <p style="font-size:18px;line-height:1.7;color:#cbd5e1;">This profile is ready for fast scam education with clear, friendly guidance.</p>
+  </div>
+</div>
 
 <script>
 // Register service worker for PWA installability
@@ -705,15 +724,22 @@ const DEMO = {
 
 // ── Profile switch ───────────────────────────────────────────────────────────
 function switchProfile(p) {
-  document.querySelectorAll('.profile-shell').forEach(el => el.classList.remove('active'));
+  if (!p || !document || !document.querySelectorAll) return;
+
+  document.querySelectorAll('.profile-shell').forEach(el => {
+    if (el && el.classList) el.classList.remove('active');
+  });
+
   const id = (p === 'pro' ? 'pro-shell' : p + '-shell');
   const shell = document.getElementById(id);
-  if (shell) {
+  if (shell && shell.classList) {
     shell.classList.add('active');
   } else {
     console.warn('switchProfile: shell not found for', p, 'expected id', id);
   }
+
   document.querySelectorAll('.pb-btn').forEach(b => {
+    if (!b || !b.dataset) return;
     try { b.classList.toggle('active', b.dataset.p === p); } catch (e) { /* ignore */ }
   });
 }
