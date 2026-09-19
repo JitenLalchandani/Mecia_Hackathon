@@ -53,6 +53,8 @@ const TIPS = {
 const DashboardPage = () => {
   const { user } = useAuth();
   const { theme } = useAdaptiveTheme();
+  const isTeenTheme = user?.profileType === 'teen' || theme.name === 'teen';
+  const isDarkTheme = ['teen', 'student', 'professional'].includes(user?.profileType || theme.name);
   const [stats, setStats]     = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -82,23 +84,41 @@ const DashboardPage = () => {
 
   return (
     <Layout>
-      <div style={{ maxWidth: 800, margin: '0 auto', padding: '32px 16px' }}>
+      <div
+        style={{
+          maxWidth: 800,
+          margin: '0 auto',
+          padding: '32px 16px',
+          background: isTeenTheme ? '#020d0a' : (isDarkTheme ? '#0b1020' : 'transparent'),
+          borderRadius: isTeenTheme || isDarkTheme ? 20 : 0,
+          boxShadow: isTeenTheme ? '0 0 0 1px rgba(74,252,120,0.2), 0 0 30px rgba(74,252,120,0.08)' : (isDarkTheme ? '0 0 0 1px rgba(124,155,255,0.18), 0 0 22px rgba(124,155,255,0.06)' : 'none'),
+          color: isTeenTheme ? '#d7ffe3' : (isDarkTheme ? '#e2e8f0' : '#0f172a'),
+        }}
+      >
 
         <div style={{ marginBottom: 28 }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: isTeenTheme ? '#d7ffe3' : (isDarkTheme ? '#e2e8f0' : '#0f172a') }}>
             {greeting()}, {user?.name?.split(' ')[0]} 👋
           </h1>
-          <p style={{ color: '#64748b', marginTop: 4 }}>{theme.welcomeMessage}</p>
+          <p style={{ color: isTeenTheme ? '#9ae9af' : (isDarkTheme ? '#a5b4fc' : '#64748b'), marginTop: 4 }}>{theme.welcomeMessage}</p>
         </div>
 
         <Link to="/investigate" style={{ textDecoration: 'none' }}>
           <div style={{
-            background: theme.primaryColor, borderRadius: 16, padding: '20px 24px',
-            marginBottom: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer'
+            background: isTeenTheme ? 'linear-gradient(135deg, rgba(74,252,120,0.16), rgba(8,23,18,0.92))' : (isDarkTheme ? 'linear-gradient(135deg, rgba(124,155,255,0.18), rgba(11,16,32,0.95))' : theme.primaryColor),
+            border: isTeenTheme ? '1px solid rgba(74,252,120,0.5)' : (isDarkTheme ? '1px solid rgba(124,155,255,0.35)' : 'none'),
+            borderRadius: 16,
+            padding: '20px 24px',
+            marginBottom: 24,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            boxShadow: isTeenTheme ? '0 0 20px rgba(74,252,120,0.18)' : (isDarkTheme ? '0 0 18px rgba(124,155,255,0.12)' : 'none')
           }}>
             <div>
               <div style={{ color: '#fff', fontWeight: 700, fontSize: '1.05rem', marginBottom: 4 }}>Investigate a message</div>
-              <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.88rem' }}>Paste anything suspicious — we'll analyse it in seconds</div>
+              <div style={{ color: isTeenTheme ? 'rgba(218,255,226,0.8)' : 'rgba(255,255,255,0.7)', fontSize: '0.88rem' }}>Paste anything suspicious — we'll analyse it in seconds</div>
             </div>
             <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
               <Search size={20} color="#fff" />
@@ -107,39 +127,70 @@ const DashboardPage = () => {
           </div>
         </Link>
 
-        <h2 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12 }}>Your activity</h2>
+        <h2 style={{ fontSize: '0.85rem', fontWeight: 600, color: isTeenTheme ? '#9ae9af' : (isDarkTheme ? '#c7d2fe' : '#64748b'), textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12 }}>Your activity</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 28 }}>
-          <StatCard icon={Shield}        label="Total analyses" value={stats?.total      ?? 0} color="#0f172a" loading={loading} />
-          <StatCard icon={CheckCircle}   label="Safe messages"  value={stats?.safe       ?? 0} color="#16a34a" loading={loading} />
-          <StatCard icon={AlertTriangle} label="Suspicious"     value={stats?.suspicious ?? 0} color="#d97706" loading={loading} />
-          <StatCard icon={XCircle}       label="Scams caught"   value={scamsCaught}             color="#dc2626" loading={loading} />
+          <StatCard icon={Shield}        label="Total analyses" value={stats?.total      ?? 0} color={isTeenTheme ? '#4afc78' : (isDarkTheme ? '#7c9bff' : '#0f172a')} loading={loading} />
+          <StatCard icon={CheckCircle}   label="Safe messages"  value={stats?.safe       ?? 0} color={isTeenTheme ? '#7ef0a3' : (isDarkTheme ? '#93c5fd' : '#16a34a')} loading={loading} />
+          <StatCard icon={AlertTriangle} label="Suspicious"     value={stats?.suspicious ?? 0} color={isTeenTheme ? '#facc15' : (isDarkTheme ? '#fbbf24' : '#d97706')} loading={loading} />
+          <StatCard icon={XCircle}       label="Scams caught"   value={scamsCaught}             color={isTeenTheme ? '#ff6b6b' : (isDarkTheme ? '#f472b6' : '#dc2626')} loading={loading} />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 28 }}>
           <Link to="/history" style={{ textDecoration: 'none' }}>
-            <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
-              <Clock size={18} color="#64748b" />
-              <span style={{ fontSize: '0.9rem', fontWeight: 500, color: '#334155' }}>View history</span>
-              <ArrowRight size={14} color="#94a3b8" style={{ marginLeft: 'auto' }} />
+            <div style={{
+              background: isTeenTheme ? 'rgba(7, 22, 17, 0.9)' : (isDarkTheme ? 'rgba(11, 16, 32, 0.9)' : '#fff'),
+              borderRadius: 12,
+              border: isTeenTheme ? '1px solid rgba(74,252,120,0.3)' : (isDarkTheme ? '1px solid rgba(124,155,255,0.25)' : '1px solid #e2e8f0'),
+              padding: '14px 18px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              cursor: 'pointer',
+              boxShadow: isTeenTheme ? '0 0 16px rgba(74,252,120,0.08)' : (isDarkTheme ? '0 0 16px rgba(124,155,255,0.08)' : 'none')
+            }}>
+              <Clock size={18} color={isTeenTheme ? '#4afc78' : (isDarkTheme ? '#7c9bff' : '#64748b')} />
+              <span style={{ fontSize: '0.9rem', fontWeight: 500, color: isTeenTheme ? '#d7ffe3' : (isDarkTheme ? '#e2e8f0' : '#334155') }}>View history</span>
+              <ArrowRight size={14} color={isTeenTheme ? '#9ae9af' : (isDarkTheme ? '#c7d2fe' : '#94a3b8')} style={{ marginLeft: 'auto' }} />
             </div>
           </Link>
           <Link to="/profile" style={{ textDecoration: 'none' }}>
-            <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
-              <Shield size={18} color="#64748b" />
-              <span style={{ fontSize: '0.9rem', fontWeight: 500, color: '#334155' }}>Edit profile</span>
-              <ArrowRight size={14} color="#94a3b8" style={{ marginLeft: 'auto' }} />
+            <div style={{
+              background: isTeenTheme ? 'rgba(7, 22, 17, 0.9)' : (isDarkTheme ? 'rgba(11, 16, 32, 0.9)' : '#fff'),
+              borderRadius: 12,
+              border: isTeenTheme ? '1px solid rgba(74,252,120,0.3)' : (isDarkTheme ? '1px solid rgba(124,155,255,0.25)' : '1px solid #e2e8f0'),
+              padding: '14px 18px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              cursor: 'pointer',
+              boxShadow: isTeenTheme ? '0 0 16px rgba(74,252,120,0.08)' : (isDarkTheme ? '0 0 16px rgba(124,155,255,0.08)' : 'none')
+            }}>
+              <Shield size={18} color={isTeenTheme ? '#4afc78' : (isDarkTheme ? '#7c9bff' : '#64748b')} />
+              <span style={{ fontSize: '0.9rem', fontWeight: 500, color: isTeenTheme ? '#d7ffe3' : (isDarkTheme ? '#e2e8f0' : '#334155') }}>Edit profile</span>
+              <ArrowRight size={14} color={isTeenTheme ? '#9ae9af' : (isDarkTheme ? '#c7d2fe' : '#94a3b8')} style={{ marginLeft: 'auto' }} />
             </div>
           </Link>
         </div>
 
         {theme.showTips && (
-          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20 }}>
-            <h2 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#0f172a', marginBottom: 14 }}>🛡️ Stay protected</h2>
+          <div style={{
+            background: isTeenTheme ? 'rgba(7,22,17,0.9)' : (isDarkTheme ? 'rgba(11,16,32,0.9)' : '#fff'),
+            borderRadius: 12,
+            border: isTeenTheme ? '1px solid rgba(74,252,120,0.3)' : (isDarkTheme ? '1px solid rgba(124,155,255,0.25)' : '1px solid #e2e8f0'),
+            padding: 20,
+            boxShadow: isTeenTheme ? '0 0 16px rgba(74,252,120,0.06)' : (isDarkTheme ? '0 0 16px rgba(124,155,255,0.06)' : 'none')
+          }}>
+            <h2 style={{ fontSize: '0.95rem', fontWeight: 600, color: isTeenTheme ? '#d7ffe3' : (isDarkTheme ? '#e2e8f0' : '#0f172a'), marginBottom: 14 }}>🛡️ Stay protected</h2>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {tips.map((tip, i) => (
-                <li key={i} style={{ display: 'flex', gap: 10, padding: '9px 0', borderBottom: i < tips.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                <li key={i} style={{
+                  display: 'flex',
+                  gap: 10,
+                  padding: '9px 0',
+                  borderBottom: i < tips.length - 1 ? (isTeenTheme ? '1px solid rgba(74,252,120,0.18)' : (isDarkTheme ? '1px solid rgba(124,155,255,0.15)' : '1px solid #f1f5f9')) : 'none'
+                }}>
                   <span style={{ color: theme.primaryColor, fontWeight: 700, flexShrink: 0, minWidth: 18 }}>{i + 1}.</span>
-                  <span style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.55 }}>{tip}</span>
+                  <span style={{ fontSize: '0.88rem', color: isTeenTheme ? '#d7ffe3' : (isDarkTheme ? '#dfe7ff' : '#475569'), lineHeight: 1.55 }}>{tip}</span>
                 </li>
               ))}
             </ul>

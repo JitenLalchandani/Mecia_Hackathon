@@ -565,23 +565,168 @@
 </div>
 
 <div id="student-shell" class="profile-shell">
-  <div style="max-width:900px;margin:80px auto 0;padding:32px 24px;color:#e2e8f0;font-family:Inter,sans-serif;">
-    <h2 style="font-size:32px;margin-bottom:12px;color:#c4b5fd;">Student profile</h2>
-    <p style="font-size:18px;line-height:1.7;color:#cbd5e1;">This profile is ready for the student-focused scam education experience.</p>
+  <nav class="st-nav">
+    <div class="st-logo">
+      <span class="st-logo-badge">AI</span>
+      <span>CyberTwin</span>
+    </div>
+    <div class="st-nav-links">
+      <div class="st-nav-link active">Home</div>
+      <div class="st-nav-link">Check</div>
+      <div class="st-nav-link">Tips</div>
+      <div class="st-nav-link">Safety</div>
+    </div>
+  </nav>
+
+  <div class="st-main">
+    <div class="st-hero">
+      <div class="st-hero-eyebrow">Student protection</div>
+      <h1 class="st-hero-h1">Spot scam messages before they reach you.</h1>
+      <div class="st-hero-sub">Use quick checks, friendly guidance, and scam pattern awareness.</div>
+    </div>
+
+    <div class="st-glass">
+      <div class="st-type-chips">
+        <button class="st-chip active" type="button">Message</button>
+        <button class="st-chip" type="button">Email</button>
+        <button class="st-chip" type="button">DM</button>
+      </div>
+
+      <textarea class="st-textarea" id="st-input" placeholder="Drop a suspicious message, DM, or email here..." rows="5"></textarea>
+      <button class="st-btn" id="st-btn" onclick="runDemo('student')">
+        <span id="st-btn-text">⚡ Analyse Now</span>
+      </button>
+    </div>
+
+    <div class="st-glass st-result" id="st-result">
+      <div id="st-verdict" class="st-verdict-bar"></div>
+      <div class="st-tags" id="st-tags"></div>
+      <ul class="st-steps-list" id="st-steps"></ul>
+    </div>
   </div>
 </div>
 
 <div id="pro-shell" class="profile-shell">
-  <div style="max-width:900px;margin:80px auto 0;padding:32px 24px;color:#e2e8f0;font-family:Inter,sans-serif;">
-    <h2 style="font-size:32px;margin-bottom:12px;color:#67e8f9;">Professional profile</h2>
-    <p style="font-size:18px;line-height:1.7;color:#cbd5e1;">This profile is ready for enterprise-grade phishing and impersonation checks.</p>
+  <div class="pr-topbar">
+    <div class="pr-topbar-logo">cybertwin://intel</div>
+    <div class="pr-topbar-tabs">
+      <div class="pr-tab active">Threat Desk</div>
+      <div class="pr-tab">History</div>
+      <div class="pr-tab">Signals</div>
+      <div class="pr-tab">Policy</div>
+    </div>
+    <div class="pr-status"><span class="pr-dot"></span> ONLINE</div>
+  </div>
+
+  <div class="pr-main">
+    <div class="pr-section-label">Threat monitoring</div>
+    <div class="pr-panel">
+      <div class="pr-grid">
+        <div class="pr-stat">
+          <div class="pr-stat-val" id="pr-stat-1">07</div>
+          <div class="pr-stat-label">active alerts</div>
+        </div>
+        <div class="pr-stat">
+          <div class="pr-stat-val" id="pr-stat-2">96%</div>
+          <div class="pr-stat-label">safe routing</div>
+        </div>
+        <div class="pr-stat">
+          <div class="pr-stat-val" id="pr-stat-3">14m</div>
+          <div class="pr-stat-label">avg. triage</div>
+        </div>
+      </div>
+
+      <div class="pr-input-row">
+        <select class="pr-type-select" aria-label="Message type">
+          <option>Message</option>
+          <option>Email</option>
+          <option>URL</option>
+        </select>
+        <textarea class="pr-textarea" id="pr-input" placeholder="Paste message body, email, or URL for analysis..."></textarea>
+      </div>
+      <button class="pr-btn" id="pr-btn" onclick="runDemo('pro')">
+        <span id="pr-btn-text">Run Analysis</span>
+      </button>
+    </div>
+
+    <div class="pr-panel pr-result" id="pr-result">
+      <div class="pr-result-header" id="pr-header"></div>
+      <div class="pr-section-label" style="margin-top:16px; margin-bottom:8px;">Key findings</div>
+      <ul class="pr-findings" id="pr-findings"></ul>
+      <div class="pr-section-label" style="margin-top:16px; margin-bottom:8px;">Recommended response</div>
+      <ul class="pr-rec-steps" id="pr-steps"></ul>
+    </div>
   </div>
 </div>
 
 <div id="teen-shell" class="profile-shell">
-  <div style="max-width:900px;margin:80px auto 0;padding:32px 24px;color:#e2e8f0;font-family:Inter,sans-serif;">
-    <h2 style="font-size:32px;margin-bottom:12px;color:#f9a8d4;">Teen profile</h2>
-    <p style="font-size:18px;line-height:1.7;color:#cbd5e1;">This profile is ready for fast scam education with clear, friendly guidance.</p>
+  <div class="gm-topbar">
+    <div class="gm-logo"><span class="gm-logo-icon">T</span> CYBERTWIN</div>
+    <div class="gm-nav">
+      <div class="gm-nav-item active">Hub</div>
+      <div class="gm-nav-item">Scan</div>
+      <div class="gm-nav-item">Alerts</div>
+      <div class="gm-nav-item">Safety</div>
+    </div>
+    <div class="gm-status"><span class="gm-status-dot"></span> LIVE</div>
+  </div>
+
+  <div class="gm-main">
+    <div class="gm-hud-header">
+      <div class="gm-eyebrow">Threat intelligence</div>
+      <div class="gm-h1">Check the message.</div>
+      <div class="gm-h1-sub">Quick scam checks for teens, fast and easy.</div>
+    </div>
+
+    <div class="gm-stats-row">
+      <div class="gm-stat-box">
+        <div class="gm-stat-val" id="gm-stat-scans">02</div>
+        <div class="gm-stat-label">scans</div>
+      </div>
+      <div class="gm-stat-box">
+        <div class="gm-stat-val" id="gm-stat-threats">00</div>
+        <div class="gm-stat-label">threats</div>
+      </div>
+      <div class="gm-stat-box">
+        <div class="gm-stat-val">+94%</div>
+        <div class="gm-stat-label">accuracy</div>
+      </div>
+    </div>
+
+    <div class="gm-panel">
+      <div class="gm-panel-label">Input</div>
+      <div class="gm-type-row">
+        <button class="gm-type-btn active" type="button">DM</button>
+        <button class="gm-type-btn" type="button">SMS</button>
+        <button class="gm-type-btn" type="button">Email</button>
+      </div>
+      <textarea class="gm-textarea" id="gm-input" placeholder="// paste suspicious message here..."></textarea>
+      <button class="gm-btn" id="gm-btn" onclick="runDemo('teen')">
+        <span id="gm-btn-text">[ INITIATE SCAN ]</span>
+      </button>
+      <div class="gm-scan-bar" id="gm-scan-bar">
+        <div class="gm-scan-label" id="gm-scan-label">INITIALISING...</div>
+        <div class="gm-scan-track"><div class="gm-scan-fill" id="gm-scan-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="gm-panel gm-result" id="gm-result">
+      <div class="gm-hpbar-section">
+        <div class="gm-hpbar-header">
+          <div class="gm-hpbar-label">Trust score</div>
+          <div class="gm-hpbar-score" id="gm-score">0</div>
+        </div>
+        <div class="gm-hpbar-track">
+          <div class="gm-hpbar-fill" id="gm-hpbar-fill"></div>
+        </div>
+        <div class="gm-hpbar-verdict" id="gm-verdict-label">WAITING...</div>
+        <div class="gm-hpbar-exp" id="gm-exp">No analysis run yet.</div>
+      </div>
+
+      <div class="gm-threats" id="gm-threats"></div>
+      <div class="gm-mission-label">Mission response</div>
+      <ul class="gm-objectives" id="gm-objectives"></ul>
+    </div>
   </div>
 </div>
 

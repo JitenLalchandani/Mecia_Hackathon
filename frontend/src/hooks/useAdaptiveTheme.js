@@ -19,7 +19,7 @@ const THEMES = {
     cardStyle: 'rounded-2xl shadow-md border-2',
     buttonStyle: 'text-lg px-8 py-4 rounded-xl font-semibold',
     iconSize: 28,
-    language: 'simple',        // simpler vocabulary
+    language: 'simple',
     showTips: true,
     spacing: 'spacious',
     welcomeMessage: 'Stay safe online. We check messages for you.',
@@ -36,20 +36,20 @@ const THEMES = {
     label: 'Student Shield',
     fontSize: 'base',
     fontSizeClass: 'text-base',
-    primaryColor: '#7c3aed',   // vibrant purple
-    accentColor: '#a855f7',
-    bgColor: '#faf5ff',
-    cardStyle: 'rounded-xl shadow-sm border',
-    buttonStyle: 'text-base px-6 py-3 rounded-lg font-medium',
+    primaryColor: '#7c9bff',
+    accentColor: '#b084ff',
+    bgColor: '#0b1020',
+    cardStyle: 'rounded-xl shadow-[0_0_18px_rgba(124,155,255,0.18)] border border-indigo-400/30',
+    buttonStyle: 'text-base px-6 py-3 rounded-lg font-semibold',
     iconSize: 22,
     language: 'casual',
     showTips: true,
     spacing: 'normal',
-    welcomeMessage: 'Spot scams before they spot you.',
+    welcomeMessage: 'Stay sharp and keep your inbox safe.',
     inputPlaceholder: 'Drop a suspicious message, DM, or email here...',
     trustLabels: {
       safe: 'Looks legit ✓',
-      suspicious: 'Sus... proceed with care',
+      suspicious: 'Proceed with care',
       likely_scam: 'Red flags detected 🚩',
       confirmed_scam: 'Scam confirmed — block and report'
     }
@@ -59,16 +59,16 @@ const THEMES = {
     label: 'Pro Security',
     fontSize: 'sm',
     fontSizeClass: 'text-sm',
-    primaryColor: '#0f172a',   // dark slate
-    accentColor: '#0ea5e9',
-    bgColor: '#f8fafc',
-    cardStyle: 'rounded-lg shadow-sm border',
-    buttonStyle: 'text-sm px-5 py-2.5 rounded-md font-medium',
+    primaryColor: '#5eb7ff',
+    accentColor: '#93c5fd',
+    bgColor: '#0b0f14',
+    cardStyle: 'rounded-lg shadow-sm border border-slate-700',
+    buttonStyle: 'text-sm px-5 py-2.5 rounded-md font-semibold',
     iconSize: 18,
     language: 'technical',
     showTips: false,
     spacing: 'compact',
-    welcomeMessage: 'Threat intelligence & scam analysis.',
+    welcomeMessage: 'Threat intelligence and scam analysis.',
     inputPlaceholder: 'Paste message, email body, or URL for analysis...',
     trustLabels: {
       safe: 'Clean',
@@ -82,22 +82,22 @@ const THEMES = {
     label: 'Teen Defender',
     fontSize: 'base',
     fontSizeClass: 'text-base',
-    primaryColor: '#db2777',   // hot pink
-    accentColor: '#f472b6',
-    bgColor: '#fdf2f8',
-    cardStyle: 'rounded-2xl shadow border',
-    buttonStyle: 'text-base px-6 py-3 rounded-full font-semibold',
+    primaryColor: '#4afc78',
+    accentColor: '#b8ffbf',
+    bgColor: '#020d0a',
+    cardStyle: 'rounded-2xl shadow-[0_0_30px_rgba(74,252,120,0.32)] border border-[#4afc78]/80 bg-[#03130f]',
+    buttonStyle: 'text-base px-6 py-3 rounded-md font-bold uppercase tracking-[0.12em]',
     iconSize: 22,
     language: 'casual',
     showTips: true,
     spacing: 'normal',
-    welcomeMessage: "Don't get played. Check it here first.",
-    inputPlaceholder: 'Paste that sketchy message, email, or DM...',
+    welcomeMessage: 'Threat detected. We block the shady payload before it reaches you.',
+    inputPlaceholder: 'Paste the suspicious DM, link, or message here...',
     trustLabels: {
-      safe: "It's giving legit ✓",
-      suspicious: 'Not sure about this one...',
-      likely_scam: 'Major red flag energy 🚩',
-      confirmed_scam: "It's a scam! Block them NOW"
+      safe: '✅ Clean signal',
+      suspicious: '⚠️ Unverified packet',
+      likely_scam: '🚫 Likely scam payload',
+      confirmed_scam: '🛑 Scam confirmed. Block it.'
     }
   }
 };
