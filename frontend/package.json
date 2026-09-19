@@ -17,9 +17,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-icons": "node scripts/generate-icons.js",
+    "generate-favicon": "node scripts/generate-favicon.js"
   },
   "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "sharp": "^0.32.4",
+    "png-to-ico": "^1.0.0"
+  },
   "browserslist": {
     "production": [">0.2%", "not dead", "not op_mini all"],
     "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]

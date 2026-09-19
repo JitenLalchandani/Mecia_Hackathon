@@ -49,6 +49,21 @@ const userSchema = new mongoose.Schema({
   lastLogin: {
     type: Date
   }
+  ,
+  // Roles for RBAC
+  roles: {
+    type: [String],
+    enum: ['admin', 'editor', 'operator', 'viewer'],
+    default: ['viewer']
+  },
+  google: {
+    // encrypted refresh token
+    refreshToken: { type: String },
+    // scopes granted
+    scopes: { type: [String], default: [] },
+    // last time tokens were refreshed
+    tokenUpdatedAt: { type: Date }
+  }
 }, {
   timestamps: true
 });

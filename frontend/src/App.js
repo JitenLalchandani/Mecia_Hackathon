@@ -10,6 +10,7 @@ import ProfilePage     from './pages/ProfilePage';
 import TrustCirclePage from './pages/TrustCirclePage';
 import ReportsPage     from './pages/ReportsPage';
 import NetworkScanPage from './pages/NetworkScanPage';
+import AuditLogsPage   from './pages/AuditLogsPage';
 import './styles/globals.css';
 
 const PrivateRoute = ({ children }) => {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/trust-circle"  element={<PrivateRoute><TrustCirclePage /></PrivateRoute>} />
           <Route path="/reports"       element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
           <Route path="/network-scan"  element={<PrivateRoute><NetworkScanPage /></PrivateRoute>} />
+          <Route path="/audit-logs"    element={<PrivateRoute><AuditLogsPage /></PrivateRoute>} />
           <Route path="/profile"       element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
         </Routes>
       </Router>

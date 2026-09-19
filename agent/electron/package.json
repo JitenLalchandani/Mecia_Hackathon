@@ -1,0 +1,14 @@
+{
+  "name": "cybertwin-electron-agent",
+  "version": "0.1.0",
+  "description": "Local-first CyberTwin Electron agent for on-device scanning (no uploads by default)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "CyberTwin",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^26.0.0"
+  }
+}

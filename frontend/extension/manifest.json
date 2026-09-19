@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "CyberTwin Quick Scan",
+  "version": "0.1.0",
+  "description": "Select text in webmail or any page and scan for scams with CyberTwin.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"]
+}

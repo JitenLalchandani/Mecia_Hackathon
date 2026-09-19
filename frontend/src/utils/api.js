@@ -29,6 +29,10 @@ export const authAPI = {
   getMe:    ()     => API.get('/auth/me'),
 };
 
+export const auditAPI = {
+  getLogs: (limit = 100) => API.get(`/audit?limit=${limit}`),
+};
+
 export const investigationAPI = {
   investigate:    (text, inputType = 'message') => API.post('/investigate/message', { text, inputType }),
   getHistory:     (page = 1, limit = 10)        => API.get(`/investigate/history?page=${page}&limit=${limit}`),

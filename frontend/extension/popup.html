@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CyberTwin Quick Scan</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; width: 300px; padding: 12px; }
+      button { width: 100%; padding: 8px; margin-top: 8px }
+      pre { white-space: pre-wrap; max-height: 200px; overflow:auto; background:#f6f6f6; padding:8px }
+    </style>
+  </head>
+  <body>
+    <h3>Quick Scan</h3>
+    <p>Select text on a page (email/message) and click Scan.</p>
+    <button id="scanBtn">Scan selected text</button>
+    <div id="status"></div>
+    <pre id="result" style="display:none"></pre>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

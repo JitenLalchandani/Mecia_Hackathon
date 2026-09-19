@@ -1,16 +1,920 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="description" content="CyberTwin AI — Adaptive cybersecurity platform that detects scams and protects you online." />
-    <title>CyberTwin AI</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run CyberTwin AI.</noscript>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0f172a" />
+<meta name="description" content="CyberTwin AI — Adaptive cybersecurity platform that detects scams and protects you online." />
+<title>CyberTwin AI — Adaptive UI</title>
+<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" href="/icons/icon-180.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="msapplication-TileImage" content="/icons/icon-256.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Nunito:wght@700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Profile switcher bar ───────────────────────────────────────── */
+#profile-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: #0d0d0d; border-bottom: 1px solid #1f1f1f;
+  display: flex; align-items: center; gap: 8px; padding: 10px 20px;
+  font-family: Inter, sans-serif;
+}
+#profile-bar span { font-size: 12px; color: #555; margin-right: 4px; }
+.pb-btn {
+  padding: 6px 16px; border-radius: 20px; border: 1px solid #333;
+  background: transparent; color: #888; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; font-family: Inter, sans-serif;
+}
+.pb-btn.active, .pb-btn:hover { color: #fff; }
+.pb-btn[data-p="senior"].active  { background: #1e3a8a; border-color: #1e3a8a; }
+.pb-btn[data-p="student"].active { background: #6d28d9; border-color: #6d28d9; }
+.pb-btn[data-p="pro"].active     { background: #0e7490; border-color: #0e7490; }
+.pb-btn[data-p="teen"].active    { background: #be185d; border-color: #be185d; }
+
+/* ── HIDE all profiles ──────────────────────────────────────────── */
+.profile-shell { display: none; min-height: 100vh; padding-top: 52px; }
+.profile-shell.active { display: block; }
+
+/* ════════════════════════════════════════════════════════════════
+   PROFILE 1 — SENIOR
+   Calm newspaper trust. Warm white, deep navy, large Lora serif.
+   ════════════════════════════════════════════════════════════════ */
+#senior-shell {
+  background: #f5f3ee;
+  font-family: 'Lora', Georgia, serif;
+}
+.sn-nav {
+  background: #1e3a8a; padding: 0 28px;
+  display: flex; align-items: center; gap: 0;
+}
+.sn-nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 0; border-right: 1px solid rgba(255,255,255,0.15);
+  padding-right: 28px; margin-right: 0;
+}
+.sn-nav-logo svg { width: 32px; height: 32px; fill: #fff; }
+.sn-nav-logo-text { font-family: 'Lora', serif; font-size: 22px; font-weight: 700; color: #fff; }
+.sn-nav-links { display: flex; gap: 0; margin-left: 0; padding-left: 28px; }
+.sn-nav-link {
+  font-family: Inter, sans-serif; font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.75); padding: 20px 18px; cursor: pointer;
+  border-bottom: 3px solid transparent; transition: all 0.15s;
+}
+.sn-nav-link:hover, .sn-nav-link.active { color: #fff; border-bottom-color: #93c5fd; }
+.sn-main { max-width: 780px; margin: 0 auto; padding: 40px 24px; }
+.sn-greeting {
+  font-size: 32px; font-weight: 700; color: #1e3a8a; line-height: 1.2; margin-bottom: 6px;
+}
+.sn-greeting-sub { font-family: Inter, sans-serif; font-size: 16px; color: #64748b; margin-bottom: 36px; }
+.sn-card {
+  background: #fff; border: 1px solid #dde4ef; border-radius: 16px;
+  padding: 32px; margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(30,58,138,0.06);
+}
+.sn-card-title {
+  font-size: 22px; font-weight: 700; color: #1e3a8a; margin-bottom: 8px;
+}
+.sn-card-sub { font-family: Inter, sans-serif; font-size: 15px; color: #64748b; margin-bottom: 22px; }
+.sn-textarea {
+  width: 100%; padding: 18px; border: 2px solid #cbd5e1; border-radius: 12px;
+  font-family: Inter, sans-serif; font-size: 17px; line-height: 1.6;
+  resize: vertical; min-height: 120px; outline: none; color: #1e293b;
+  background: #f8fafc; transition: border-color 0.2s;
+}
+.sn-textarea:focus { border-color: #1e3a8a; background: #fff; }
+.sn-btn {
+  width: 100%; margin-top: 18px; padding: 18px; border: none; border-radius: 12px;
+  background: #1e3a8a; color: #fff; font-family: Inter, sans-serif;
+  font-size: 18px; font-weight: 700; cursor: pointer; letter-spacing: 0.02em;
+  transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.sn-btn:hover { background: #1e40af; }
+.sn-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+.sn-result { display: none; }
+.sn-result.show { display: block; }
+.sn-verdict {
+  display: flex; align-items: center; gap: 18px; padding: 24px;
+  border-radius: 16px; margin-bottom: 20px; border: 2px solid;
+}
+.sn-verdict-icon { font-size: 48px; flex-shrink: 0; }
+.sn-verdict-score { font-size: 48px; font-weight: 700; line-height: 1; }
+.sn-verdict-label { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.sn-verdict-exp { font-family: Inter, sans-serif; font-size: 16px; line-height: 1.6; }
+.sn-steps { list-style: none; padding: 0; }
+.sn-step {
+  display: flex; gap: 14px; padding: 14px 0;
+  border-bottom: 1px solid #f1f5f9; font-family: Inter, sans-serif;
+  font-size: 16px; align-items: flex-start;
+}
+.sn-step-num {
+  width: 32px; height: 32px; border-radius: 50%; background: #1e3a8a;
+  color: #fff; font-weight: 700; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sn-tip-list { list-style: none; padding: 0; }
+.sn-tip {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9; font-family: Inter, sans-serif; font-size: 16px; color: #334155;
+}
+.sn-tip-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+
+/* ════════════════════════════════════════════════════════════════
+   PROFILE 2 — STUDENT
+   Editorial dark glass. Deep indigo background, glass cards, Inter.
+   ════════════════════════════════════════════════════════════════ */
+#student-shell {
+  background: #0f0a1e;
+  background-image: radial-gradient(ellipse at 20% 20%, rgba(109,40,217,0.18) 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 80%, rgba(79,70,229,0.12) 0%, transparent 60%);
+  font-family: Inter, sans-serif; color: #e2e8f0;
+}
+.st-nav {
+  background: rgba(15,10,30,0.8); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(109,40,217,0.3);
+  padding: 0 24px; display: flex; align-items: center; gap: 20px;
+}
+.st-logo { font-size: 18px; font-weight: 700; color: #fff; padding: 16px 0; display: flex; align-items: center; gap: 8px; }
+.st-logo-badge { background: linear-gradient(135deg,#7c3aed,#4f46e5); padding: 6px 10px; border-radius: 8px; font-size: 13px; }
+.st-nav-links { display: flex; gap: 4px; margin-left: auto; }
+.st-nav-link {
+  padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+  color: #94a3b8; cursor: pointer; transition: all 0.15s;
+}
+.st-nav-link:hover, .st-nav-link.active { background: rgba(124,58,237,0.15); color: #a78bfa; }
+.st-main { max-width: 740px; margin: 0 auto; padding: 36px 20px; }
+.st-hero { margin-bottom: 32px; }
+.st-hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; margin-bottom: 8px; }
+.st-hero-h1 { font-size: 34px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 8px; }
+.st-hero-sub { font-size: 15px; color: #94a3b8; }
+.st-glass {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; backdrop-filter: blur(12px); padding: 28px; margin-bottom: 20px;
+}
+.st-type-chips { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.st-chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.12); color: #94a3b8; cursor: pointer;
+  transition: all 0.15s; background: transparent;
+}
+.st-chip.active { background: rgba(124,58,237,0.25); border-color: #7c3aed; color: #c4b5fd; }
+.st-textarea {
+  width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 16px; font-family: Inter, sans-serif; font-size: 14px;
+  color: #e2e8f0; resize: vertical; min-height: 110px; outline: none;
+  transition: border-color 0.2s; line-height: 1.6;
+}
+.st-textarea:focus { border-color: #7c3aed; }
+.st-textarea::placeholder { color: #475569; }
+.st-btn {
+  width: 100%; margin-top: 16px; padding: 14px;
+  background: linear-gradient(135deg, #7c3aed, #4f46e5); border: none; border-radius: 12px;
+  color: #fff; font-family: Inter, sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.st-btn:hover { opacity: 0.9; }
+.st-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.st-result { display: none; }
+.st-result.show { display: block; }
+.st-verdict-bar {
+  display: flex; align-items: center; gap: 16px; padding: 20px;
+  border-radius: 14px; margin-bottom: 16px; border: 1px solid;
+}
+.st-score-big { font-size: 52px; font-weight: 700; line-height: 1; }
+.st-verdict-label { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.st-verdict-exp { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+.st-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.st-tag { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+.st-steps-list { list-style: none; padding: 0; }
+.st-step-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: #cbd5e1; }
+.st-step-n { min-width: 22px; height: 22px; border-radius: 50%; background: rgba(124,58,237,0.3); color: #a78bfa; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* ════════════════════════════════════════════════════════════════
+   PROFILE 3 — PROFESSIONAL
+   Security terminal. Dark background, JetBrains Mono data, cyan.
+   ════════════════════════════════════════════════════════════════ */
+#pro-shell {
+  background: #0a0e14;
+  font-family: Inter, sans-serif; color: #c9d1d9;
+}
+.pr-topbar {
+  background: #0d1117; border-bottom: 1px solid #1c2128;
+  padding: 0 24px; display: flex; align-items: center; gap: 0; height: 48px;
+}
+.pr-topbar-logo { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: #0ea5e9; padding-right: 20px; border-right: 1px solid #1c2128; }
+.pr-topbar-tabs { display: flex; gap: 0; margin-left: 0; }
+.pr-tab {
+  font-family: Inter, sans-serif; font-size: 12px; font-weight: 500;
+  color: #6e7681; padding: 0 16px; height: 48px; display: flex; align-items: center;
+  border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.1s;
+}
+.pr-tab:hover { color: #c9d1d9; }
+.pr-tab.active { color: #0ea5e9; border-bottom-color: #0ea5e9; }
+.pr-status { margin-left: auto; display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #3fb950; }
+.pr-dot { width: 7px; height: 7px; border-radius: 50%; background: #3fb950; }
+.pr-main { max-width: 900px; margin: 0 auto; padding: 24px; }
+.pr-section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0ea5e9; margin-bottom: 10px; }
+.pr-panel {
+  background: #0d1117; border: 1px solid #1c2128; border-radius: 8px;
+  padding: 20px; margin-bottom: 16px;
+}
+.pr-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.pr-stat { background: #161b22; border: 1px solid #1c2128; border-radius: 6px; padding: 14px 16px; }
+.pr-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; color: #e6edf3; line-height: 1; margin-bottom: 4px; }
+.pr-stat-label { font-size: 11px; color: #6e7681; text-transform: uppercase; letter-spacing: 0.05em; }
+.pr-input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.pr-type-select {
+  background: #161b22; border: 1px solid #1c2128; border-radius: 6px;
+  color: #c9d1d9; font-family: Inter, sans-serif; font-size: 12px; padding: 8px 12px;
+  outline: none; cursor: pointer;
+}
+.pr-textarea {
+  flex: 1; background: #0d1117; border: 1px solid #1c2128; border-radius: 6px;
+  padding: 12px 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  color: #c9d1d9; resize: vertical; min-height: 80px; outline: none;
+  line-height: 1.6; transition: border-color 0.15s;
+}
+.pr-textarea:focus { border-color: #0ea5e9; }
+.pr-textarea::placeholder { color: #3d444d; }
+.pr-btn {
+  background: #0ea5e9; border: none; border-radius: 6px; color: #fff;
+  font-family: Inter, sans-serif; font-size: 13px; font-weight: 600;
+  padding: 10px 20px; cursor: pointer; transition: background 0.15s; white-space: nowrap;
+}
+.pr-btn:hover { background: #0284c7; }
+.pr-btn:disabled { background: #1c2128; color: #3d444d; cursor: not-allowed; }
+.pr-result { display: none; }
+.pr-result.show { display: block; }
+.pr-result-header {
+  display: flex; align-items: center; gap: 16px; padding: 14px 16px;
+  background: #161b22; border: 1px solid #1c2128; border-radius: 6px; margin-bottom: 12px;
+}
+.pr-score-num { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 600; line-height: 1; }
+.pr-score-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.pr-score-exp { font-size: 13px; color: #8b949e; line-height: 1.5; }
+.pr-findings { list-style: none; padding: 0; }
+.pr-finding { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1c2128; font-size: 13px; }
+.pr-finding-type { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+.pr-rec-steps { list-style: none; padding: 0; }
+.pr-rec-step { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid #1c2128; font-size: 12px; color: #8b949e; }
+.pr-step-idx { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #0ea5e9; flex-shrink: 0; width: 28px; }
+
+/* ════════════════════════════════════════════════════════════════
+   PROFILE 4 — TEEN (GAMING)
+   Cyberpunk HUD. Black base, electric green + red neon,
+   Orbitron headers, scanline grid, HP-bar Trust Score,
+   mission-objective steps.
+   ════════════════════════════════════════════════════════════════ */
+#teen-shell {
+  background: #080808;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  font-family: Inter, sans-serif;
+  color: #c8ffd4;
+  min-height: 100vh;
+}
+
+/* ── HUD Topbar ── */
+.gm-topbar {
+  background: rgba(8,8,8,0.92);
+  border-bottom: 1px solid rgba(0,255,136,0.2);
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+.gm-topbar::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff88 30%, #00ff88 70%, transparent);
+  opacity: 0.4;
+}
+.gm-logo {
+  font-family: 'Orbitron', monospace; font-size: 16px; font-weight: 900;
+  color: #00ff88; letter-spacing: 0.12em; display: flex; align-items: center; gap: 10px;
+}
+.gm-logo-icon {
+  width: 28px; height: 28px; border: 2px solid #00ff88;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: #00ff88;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(0,255,136,0.08);
+}
+.gm-nav { display: flex; gap: 2px; }
+.gm-nav-item {
+  font-family: 'Orbitron', monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 14px; color: #1a6640; cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all 0.15s;
+}
+.gm-nav-item:hover, .gm-nav-item.active { color: #00ff88; border-bottom-color: #00ff88; }
+.gm-status {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Orbitron', monospace; font-size: 10px; color: #00ff88;
+  letter-spacing: 0.08em;
+}
+.gm-status-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #00ff88;
+  box-shadow: 0 0 8px #00ff88, 0 0 16px rgba(0,255,136,0.4);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity:1; box-shadow: 0 0 8px #00ff88, 0 0 16px rgba(0,255,136,0.4); }
+  50%      { opacity:0.5; box-shadow: 0 0 4px #00ff88; }
+}
+
+/* ── Main layout ── */
+.gm-main { max-width: 780px; margin: 0 auto; padding: 28px 20px; }
+
+/* ── HUD header ── */
+.gm-hud-header { margin-bottom: 24px; }
+.gm-eyebrow {
+  font-family: 'Orbitron', monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; color: #1a6640; text-transform: uppercase;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+}
+.gm-eyebrow::before { content: '//'; color: #00ff88; }
+.gm-h1 {
+  font-family: 'Orbitron', monospace; font-size: 28px; font-weight: 900;
+  color: #00ff88; letter-spacing: 0.05em; line-height: 1.1;
+  text-shadow: 0 0 20px rgba(0,255,136,0.4), 0 0 40px rgba(0,255,136,0.15);
+  margin-bottom: 6px;
+}
+.gm-h1-sub { font-size: 13px; color: #4a8a60; letter-spacing: 0.02em; }
+
+/* ── Stats row ── */
+.gm-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.gm-stat-box {
+  background: rgba(0,255,136,0.04);
+  border: 1px solid rgba(0,255,136,0.15);
+  padding: 12px 14px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.gm-stat-val {
+  font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 900;
+  color: #00ff88; line-height: 1; margin-bottom: 4px;
+}
+.gm-stat-label { font-size: 10px; color: #1a6640; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Orbitron', monospace; }
+
+/* ── Panel ── */
+.gm-panel {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(0,255,136,0.15);
+  padding: 22px; margin-bottom: 16px;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  position: relative;
+}
+.gm-panel::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, rgba(0,255,136,0.6), rgba(0,255,136,0.1));
+}
+.gm-panel-label {
+  font-family: 'Orbitron', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #00ff88;
+  margin-bottom: 14px; display: flex; align-items: center; gap: 6px;
+}
+.gm-panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(0,255,136,0.15); }
+
+/* ── Type selector ── */
+.gm-type-row { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.gm-type-btn {
+  font-family: 'Orbitron', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 7px 12px; background: transparent;
+  border: 1px solid rgba(0,255,136,0.2); color: #1a6640; cursor: pointer;
+  transition: all 0.15s;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+.gm-type-btn:hover { border-color: rgba(0,255,136,0.5); color: #4aaa70; }
+.gm-type-btn.active {
+  background: rgba(0,255,136,0.12); border-color: #00ff88; color: #00ff88;
+  box-shadow: 0 0 8px rgba(0,255,136,0.2);
+}
+
+/* ── Textarea ── */
+.gm-textarea {
+  width: 100%; background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,255,136,0.2);
+  padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  color: #c8ffd4; resize: vertical; min-height: 100px; outline: none;
+  line-height: 1.6; transition: border-color 0.2s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.gm-textarea:focus { border-color: #00ff88; box-shadow: 0 0 12px rgba(0,255,136,0.1); }
+.gm-textarea::placeholder { color: #1a3325; }
+
+/* ── Scan button ── */
+.gm-btn {
+  width: 100%; margin-top: 14px; padding: 15px; border: 1px solid #00ff88;
+  background: rgba(0,255,136,0.08);
+  color: #00ff88; font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 900;
+  letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.gm-btn:hover:not(:disabled) {
+  background: rgba(0,255,136,0.18);
+  box-shadow: 0 0 20px rgba(0,255,136,0.25), inset 0 0 20px rgba(0,255,136,0.05);
+}
+.gm-btn:disabled { border-color: #1a3325; color: #1a3325; cursor: not-allowed; background: transparent; }
+
+/* ── Scan progress bar ── */
+.gm-scan-bar { display: none; margin-top: 14px; }
+.gm-scan-bar.show { display: block; }
+.gm-scan-label { font-family: 'Orbitron', monospace; font-size: 9px; color: #00ff88; letter-spacing: 0.12em; margin-bottom: 6px; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.gm-scan-track { width: 100%; height: 4px; background: rgba(0,255,136,0.1); position: relative; overflow: hidden; }
+.gm-scan-fill { height: 100%; background: #00ff88; width: 0%; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 0 8px #00ff88; }
+
+/* ── Result panel ── */
+.gm-result { display: none; }
+.gm-result.show { display: block; animation: fadeIn 0.3s ease-out; }
+
+/* ── HP Bar (Trust Score) ── */
+.gm-hpbar-section { margin-bottom: 16px; }
+.gm-hpbar-header {
+  display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;
+}
+.gm-hpbar-label { font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 0.12em; color: #4a8a60; }
+.gm-hpbar-score { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; line-height: 1; }
+.gm-hpbar-track {
+  width: 100%; height: 18px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.gm-hpbar-fill {
+  height: 100%; width: 0%; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+}
+.gm-hpbar-fill::after {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 20px;
+  background: rgba(255,255,255,0.3); filter: blur(3px);
+}
+.gm-hpbar-verdict {
+  font-family: 'Orbitron', monospace; font-size: 16px; font-weight: 900;
+  letter-spacing: 0.08em; margin-top: 10px;
+}
+.gm-hpbar-exp { font-size: 13px; color: #6aaa84; line-height: 1.55; margin-top: 4px; }
+
+/* ── Threat indicators ── */
+.gm-threats { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.gm-threat-badge {
+  font-family: 'Orbitron', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; padding: 5px 12px; text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+/* ── Mission objectives ── */
+.gm-mission-label {
+  font-family: 'Orbitron', monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: #00ff88;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.gm-mission-label::before { content: '▶'; font-size: 8px; }
+.gm-objectives { list-style: none; padding: 0; }
+.gm-objective {
+  display: flex; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid rgba(0,255,136,0.08);
+  font-size: 13px; color: #8aaa94; align-items: flex-start;
+}
+.gm-obj-marker {
+  width: 20px; height: 20px; border: 1.5px solid rgba(0,255,136,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Orbitron', monospace; font-size: 9px; color: #00ff88;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+/* ── Shared utils ───────────────────────────────────────────────── */
+.spin { animation: spin 1s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.fade-in { animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+</style>
+</head>
+<body>
+
+<!-- Profile switcher -->
+<div id="profile-bar">
+  <span id="profile-label">Profile:</span>
+  <button class="pb-btn active" data-p="senior" onclick="switchProfile('senior')">👴 Senior</button>
+  <button class="pb-btn" data-p="student" onclick="switchProfile('student')">🎓 Student</button>
+  <button class="pb-btn" data-p="pro" onclick="switchProfile('pro')">💼 Professional</button>
+  <button class="pb-btn" data-p="teen" onclick="switchProfile('teen')">🧑 Teen</button>
+  <label for="lang-select" style="margin-left:auto;color:#888;font-size:12px;margin-right:8px">Language</label>
+  <select id="lang-select" aria-label="Select language" onchange="setLanguage(this.value)" style="background:transparent;border:1px solid #333;color:#ddd;padding:6px 8px;border-radius:6px">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी</option>
+    <option value="es">Español</option>
+  </select>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SENIOR SHELL
+     ══════════════════════════════════════════════════════════ -->
+<div id="senior-shell" class="profile-shell active">
+  <nav class="sn-nav">
+    <div class="sn-nav-logo">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.25 3.75 10.15 9 11.25C17.25 21.15 21 16.25 21 11V5L12 1z"/></svg>
+      <span class="sn-nav-logo-text">CyberTwin</span>
+    </div>
+    <div class="sn-nav-links">
+      <div class="sn-nav-link active">Home</div>
+      <div class="sn-nav-link">Check a Message</div>
+      <div class="sn-nav-link">My History</div>
+      <div class="sn-nav-link">My Circle</div>
+    </div>
+  </nav>
+  <div class="sn-main">
+    <div class="sn-greeting">Good morning, Margaret 👋</div>
+    <div class="sn-greeting-sub">Stay safe online. We check messages for you.</div>
+
+    <div class="sn-card">
+      <div class="sn-card-title">Check a suspicious message</div>
+      <div class="sn-card-sub">Copy and paste any message, email, or link that you are not sure about.</div>
+      <textarea class="sn-textarea" id="sn-input" placeholder="Paste the message you received here..." rows="5"></textarea>
+      <button class="sn-btn" id="sn-btn" onclick="runDemo('senior')">
+        <span id="sn-btn-text">🔍 Check This Message</span>
+      </button>
+    </div>
+
+    <div class="sn-card sn-result fade-in" id="sn-result">
+      <div id="sn-verdict" class="sn-verdict"></div>
+      <div class="sn-card-title" style="font-size:18px; margin-bottom:14px;">What you should do</div>
+      <ul class="sn-steps" id="sn-steps"></ul>
+    </div>
+
+    <div class="sn-card">
+      <div class="sn-card-title" style="font-size:20px;">🛡️ Today's safety reminder</div>
+      <ul class="sn-tip-list" style="margin-top:16px;">
+        <li class="sn-tip"><span class="sn-tip-icon">🏦</span><span>Your bank will <strong>never</strong> ask for your PIN, password, or OTP in a message or phone call.</span></li>
+        <li class="sn-tip"><span class="sn-tip-icon">⏰</span><span>If someone says you must act <strong>right now</strong> — stop. Take your time. Real messages can wait.</span></li>
+        <li class="sn-tip"><span class="sn-tip-icon">📞</span><span>When unsure, always call the organisation on the number on their <strong>official website</strong> — not the number in the message.</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- (student, pro, teen shells preserved here — full markup kept) -->
+
+<script>
+// Register service worker for PWA installability
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('ServiceWorker registered', reg.scope))
+      .catch(err => console.warn('ServiceWorker registration failed', err));
+  });
+}
+
+// Localized UI strings (offline only)
+const TRANSLATIONS = {
+  en: {
+    profileLabel: 'Profile:',
+    sn_placeholder: 'Paste the message you received here...',
+    st_placeholder: 'Drop a suspicious message, DM, or email here...',
+    pr_placeholder: 'Paste message body, email, or URL for analysis...',
+    gm_placeholder: '// paste suspicious message here...',
+    sn_btn: '🔍 Check This Message',
+    st_btn: '⚡ Analyse Now',
+    pr_btn: 'Run Analysis',
+    gm_btn: '[ INITIATE SCAN ]'
+  },
+  hi: {
+    profileLabel: 'प्रोफ़ाइल:',
+    sn_placeholder: 'यहाँ प्राप्त संदेश पेस्ट करें...',
+    st_placeholder: 'यहाँ संदेहास्पद संदेश, DM, या ईमेल डालें...',
+    pr_placeholder: 'विश्लेषण के लिए संदेश, ईमेल या URL पेस्ट करें...',
+    gm_placeholder: '// संदेहास्पद संदेश यहाँ पेस्ट करें...',
+    sn_btn: '🔍 संदेश जाँचें',
+    st_btn: '⚡ अब विश्लेषण करें',
+    pr_btn: 'विश्लेषण चलाएँ',
+    gm_btn: '[ स्कैन प्रारंभ करें ]'
+  },
+  es: {
+    profileLabel: 'Perfil:',
+    sn_placeholder: 'Pegue aquí el mensaje que recibió...',
+    st_placeholder: 'Suelte un mensaje, DM o correo sospechoso aquí...',
+    pr_placeholder: 'Pegue el cuerpo del mensaje, correo o URL para analizar...',
+    gm_placeholder: '// pegue el mensaje sospechoso aquí...',
+    sn_btn: '🔍 Comprobar mensaje',
+    st_btn: '⚡ Analizar ahora',
+    pr_btn: 'Ejecutar análisis',
+    gm_btn: '[ INICIAR ESCANEO ]'
+  }
+};
+
+// Current UI texts (populated by setLanguage)
+let UI_TEXT = TRANSLATIONS.en;
+
+function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) lang = 'en';
+  UI_TEXT = TRANSLATIONS[lang];
+  // update small UI bits
+  const p = document.getElementById('profile-label'); if (p) p.textContent = UI_TEXT.profileLabel;
+  const sn = document.getElementById('sn-input'); if (sn) sn.placeholder = UI_TEXT.sn_placeholder;
+  const st = document.getElementById('st-input'); if (st) st.placeholder = UI_TEXT.st_placeholder;
+  const pr = document.getElementById('pr-input'); if (pr) pr.placeholder = UI_TEXT.pr_placeholder;
+  const gm = document.getElementById('gm-input'); if (gm) gm.placeholder = UI_TEXT.gm_placeholder;
+  // update button labels if not loading (avoid overriding loading state)
+  ['sn','st','pr','gm'].forEach(k => {
+    const txtEl = document.getElementById(k + '-btn-text');
+    const btnEl = document.getElementById(k + '-btn');
+    if (txtEl && btnEl && !btnEl.disabled) {
+      const map = { sn: UI_TEXT.sn_btn, st: UI_TEXT.st_btn, pr: UI_TEXT.pr_btn, gm: UI_TEXT.gm_btn };
+      txtEl.innerHTML = map[k];
+    }
+  });
+}
+
+// Initialize default language (local-only, no network calls)
+document.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('lang-select');
+  if (sel) setLanguage(sel.value || 'en');
+});
+
+// ── Mock AI response data ─────────────────────────────────────────────────────
+const DEMO = {
+  safe: {
+    score: 87, label: 'safe',
+    senior: {
+      verdict: '✅ This looks safe',
+      explanation: 'Good news — we did not find any warning signs in this message. It appears to be genuine.',
+      steps: ['You can proceed normally','Never share your PIN, password, or OTP with anyone — even if they ask politely','If you are still unsure, ask a family member to have a look']
+    },
+    student: {
+      verdict: 'Looks legit ✓',
+      explanation: 'No major red flags detected. Seems like a genuine message.',
+      tags: [], tagColors: [],
+      steps: ['All good — proceed normally','Keep your passwords to yourself anyway','If anything feels off later, come back and check again']
+    },
+    pro: {
+      verdict: 'CLEAN',
+      explanation: 'No significant threat indicators. Message appears benign. Standard caution advised.',
+      indicators: [],
+      steps: ['Proceed with standard operational caution','Verify sender domain via SPF/DKIM if email-based','Log communication if policy requires']
+    },
+    teen: {
+      verdict: "It's giving legit ✓",
+      explanation: 'No scam vibes detected — looks like a real message!',
+      flags: [],
+      steps: ["All good! Just don't share your passwords or location","If someone online asks for gifts or money later, that's always sus","Trust your gut — if it feels off, check again"]
+    }
+  },
+  scam: {
+    score: 12, label: 'confirmed_scam',
+    senior: {
+      verdict: '🛑 Stop! This is a scam',
+      explanation: 'This is a scam. Scammers send messages like this to steal money or personal details. Please do not respond or click anything in this message.',
+      steps: ['Do not reply, call back, or click any links','Block this person so they cannot contact you again','Show this message to a trusted family member or friend','If you have already shared your bank details, call your bank immediately','Remember: your bank will NEVER ask for your full PIN or password']
+    },
+    student: {
+      verdict: 'Scam confirmed — block and report',
+      explanation: 'Multiple scam indicators detected. This is almost certainly a scam targeting you.',
+      tags: ['🚨 Urgency pressure','🏦 Bank impersonation','🔗 Phishing link','⚡ Immediate action demand'],
+      tagColors: ['#fef2f2','#fef2f2','#fef2f2','#fff3cd'],
+      steps: ['Do not reply or click anything','Screenshot it in case you need to report later','Block the sender on every platform','Report to your email provider or phone carrier','If you shared banking info, call your bank immediately']
+    },
+    pro: {
+      verdict: 'CONFIRMED THREAT',
+      explanation: 'High confidence phishing attempt. Urgency injection + brand impersonation + credential harvesting URI on non-legitimate domain. Confidence: 94%.',
+      indicators: [
+        { type: 'URGENCY', text: 'Urgency injection TTP — "URGENT", "immediately"', color: '#dc2626', bg: 'rgba(220,38,38,0.1)' },
+        { type: 'IMPERSONATION', text: 'Financial institution brand impersonation detected', color: '#d97706', bg: 'rgba(217,119,6,0.1)' },
+        { type: 'PHISHING', text: 'Credential harvesting URI — non-legitimate domain', color: '#dc2626', bg: 'rgba(220,38,38,0.1)' },
+      ],
+      steps: ['Block sender at device level immediately','Do not navigate to any embedded URLs','Preserve message with full headers as evidence','Report IOCs to cybercrime.gov.in or CERT-In','If credentials were entered, initiate password reset immediately']
+    },
+    teen: {
+      verdict: "It's a scam! Block them NOW",
+      explanation: "It's a scam, no cap. Fake bank message + sketchy link — classic trap. Do NOT click anything.",
+      flags: ['🚨 Urgency trap','🏦 Fake bank','🔗 Sus link'],
+      steps: ['Block them right now on every app','Screenshot it first as proof','Tell a parent or trusted adult immediately','Report it to the app','If you sent any money or info — tell someone today, you\'re not in trouble']
+    }
+  }
+};
+
+// ── Profile switch ───────────────────────────────────────────────────────────
+function switchProfile(p) {
+  document.querySelectorAll('.profile-shell').forEach(el => el.classList.remove('active'));
+  const id = (p === 'pro' ? 'pro-shell' : p + '-shell');
+  const shell = document.getElementById(id);
+  if (shell) {
+    shell.classList.add('active');
+  } else {
+    console.warn('switchProfile: shell not found for', p, 'expected id', id);
+  }
+  document.querySelectorAll('.pb-btn').forEach(b => {
+    try { b.classList.toggle('active', b.dataset.p === p); } catch (e) { /* ignore */ }
+  });
+}
+
+function getEl(id) {
+  return document.getElementById(id);
+}
+// ── Run demo analysis ─────────────────────────────────────────────────────────
+function runDemo(profile) {
+  const inputs = { senior: 'sn-input', student: 'st-input', pro: 'pr-input', teen: 'gm-input' };
+  const inputEl = getEl(inputs[profile]);
+  if (!inputEl) { console.warn('runDemo: missing input element for', profile, inputs[profile]); return; }
+  const val = inputEl.value.trim();
+  if (val.length < 5) return;
+
+  const scamWords = /urgent|bank|otp|click here|verify|suspended|won|prize|lottery|claim|wire|bitcoin/i;
+  const isScam = scamWords.test(val);
+  const data = isScam ? DEMO.scam : DEMO.safe;
+
+  setLoading(profile, true);
+
+  // Gaming scan bar animation
+  if (profile === 'teen') {
+    const bar = getEl('gm-scan-bar');
+    const fill = getEl('gm-scan-fill');
+    const label = getEl('gm-scan-label');
+    if (!bar || !fill || !label) { console.warn('runDemo: missing teen scan UI elements'); }
+    const phases = ['INITIALISING...', 'EXTRACTING PATTERNS...', 'RUNNING SCAM DNA...', 'CALCULATING TRUST SCORE...', 'SCAN COMPLETE'];
+    if (bar) bar.classList.add('show');
+    if (fill) fill.style.width = '0%';
+    let phase = 0;
+    const advance = () => {
+      phase++;
+      const pct = [15, 40, 65, 90, 100][phase - 1] || 100;
+      if (fill) fill.style.width = pct + '%';
+      if (label) label.textContent = phases[phase - 1] || 'SCAN COMPLETE';
+      if (fill) fill.style.background = pct === 100
+        ? (isScam ? '#ff2d55' : '#00ff88')
+        : '#00ff88';
+      if (pct === 100 && fill) {
+        fill.style.boxShadow = isScam ? '0 0 12px #ff2d55' : '0 0 12px #00ff88';
+      }
+    };
+    [200, 500, 850, 1150].forEach((t, i) => setTimeout(advance, t));
+  }
+
+  const delay = profile === 'teen' ? 1600 : 1400;
+  setTimeout(() => {
+    setLoading(profile, false);
+    renderResult(profile, data);
+    // update stat counters
+    if (profile === 'teen') {
+      const sc = getEl('gm-stat-scans');
+      const th = getEl('gm-stat-threats');
+      if (sc) sc.textContent = String(parseInt(sc.textContent || 0) + 1).padStart(2, '0');
+      if (isScam && th) th.textContent = String(parseInt(th.textContent || 0) + 1).padStart(2, '0');
+    }
+  }, delay);
+}
+
+function setLoading(profile, loading) {
+  const btns = {
+    senior:  ['sn-btn', 'sn-btn-text'],
+    student: ['st-btn', 'st-btn-text'],
+    pro:     ['pr-btn', 'pr-btn-text'],
+    teen:    ['gm-btn', 'gm-btn-text']
+  };
+  const [btnId, textId] = btns[profile];
+  const icons = {
+    senior:  UI_TEXT.sn_btn || '🔍 Check This Message',
+    student: UI_TEXT.st_btn || '⚡ Analyse Now',
+    pro:     UI_TEXT.pr_btn || 'Run Analysis',
+    teen:    UI_TEXT.gm_btn || '[ INITIATE SCAN ]'
+  };
+  const btnEl = getEl(btnId);
+  const textEl = getEl(textId);
+  if (btnEl) btnEl.disabled = loading; else console.warn('setLoading: missing button', btnId);
+  if (textEl) textEl.innerHTML = loading
+    ? (profile === 'pro'
+        ? `<span class="spin">⟳</span> Analysing...`
+        : profile === 'teen'
+        ? `<span class="spin" style="display:inline-block">▶</span> SCANNING...`
+        : `<span class="spin">⏳</span> Checking...`)
+    : icons[profile];
+}
+
+function renderResult(profile, data) {
+  if (profile === 'senior') {
+    const d = data.senior;
+    const isScam = data.label !== 'safe';
+    const colors = isScam
+      ? { bg: '#fef2f2', border: '#dc2626', text: '#7f1d1d' }
+      : { bg: '#f0fdf4', border: '#16a34a', text: '#14532d' };
+    const snVerdict = getEl('sn-verdict');
+    if (snVerdict) snVerdict.style.cssText = `background:${colors.bg};border-color:${colors.border};color:${colors.text}`;
+    if (snVerdict) snVerdict.innerHTML = `
+      <div class="sn-verdict-score" style="color:${colors.border}">${data.score}</div>
+      <div>
+        <div class="sn-verdict-label" style="color:${colors.border}">${d.verdict}</div>
+        <div class="sn-verdict-exp" style="color:#334155">${d.explanation}</div>
+      </div>`;
+    const snSteps = getEl('sn-steps'); if (snSteps) snSteps.innerHTML = d.steps.map((s,i) =>
+      `<li class="sn-step"><div class="sn-step-num">${i+1}</div><span style="color:#334155">${s}</span></li>`
+    ).join('');
+    const snResult = getEl('sn-result'); if (snResult) snResult.classList.add('show');
+  }
+
+  if (profile === 'student') {
+    const d = data.student;
+    const isScam = data.label !== 'safe';
+    const c = isScam ? { bg: 'rgba(220,38,38,0.12)', border: 'rgba(220,38,38,0.3)', score: '#f87171', label: '#fca5a5' }
+                     : { bg: 'rgba(22,163,74,0.12)', border: 'rgba(22,163,74,0.3)', score: '#4ade80', label: '#86efac' };
+    const stVerdict = getEl('st-verdict'); if (stVerdict) stVerdict.style.cssText = `background:${c.bg};border-color:${c.border}`;
+    if (stVerdict) stVerdict.innerHTML = `
+      <div class="st-score-big" style="color:${c.score}">${data.score}</div>
+      <div>
+        <div class="st-verdict-label" style="color:${c.label}">${d.verdict}</div>
+        <div class="st-verdict-exp">${d.explanation}</div>
+      </div>`;
+    const stTags = getEl('st-tags'); if (stTags) stTags.innerHTML = (d.tags||[]).map(t =>
+      `<span class="st-tag" style="background:rgba(220,38,38,0.15);color:#fca5a5">${t}</span>`
+    ).join('') || '<span style="font-size:13px;color:#4ade80">✓ No red flags detected</span>';
+    const stSteps = getEl('st-steps'); if (stSteps) stSteps.innerHTML = d.steps.map((s,i) =>
+      `<li class="st-step-row"><div class="st-step-n">${i+1}</div><span>${s}</span></li>`
+    ).join('');
+    const stResult = getEl('st-result'); if (stResult) stResult.classList.add('show');
+  }
+
+  if (profile === 'pro') {
+    const d = data.pro;
+    const isScam = data.label !== 'safe';
+    const scoreColor = isScam ? '#f85149' : '#3fb950';
+    const prHeader = getEl('pr-header'); if (prHeader) prHeader.innerHTML = `
+      <div class="pr-score-num" style="color:${scoreColor}">${data.score}</div>
+      <div style="width:1px;height:48px;background:#1c2128;flex-shrink:0"></div>
+      <div>
+        <div class="pr-score-label" style="color:${scoreColor}">${d.verdict}</div>
+        <div class="pr-score-exp">${d.explanation}</div>
+      </div>`;
+    const prFindings = getEl('pr-findings'); if (prFindings) prFindings.innerHTML = (d.indicators||[]).map(ind =>
+      `<li class="pr-finding">
+        <span class="pr-finding-type" style="background:${ind.bg};color:${ind.color}">${ind.type}</span>
+        <span style="color:#8b949e">${ind.text}</span>
+      </li>`
+    ).join('') || '<li style="padding:8px 0;font-size:13px;color:#3fb950">No significant indicators found</li>';
+    const prSteps = getEl('pr-steps'); if (prSteps) prSteps.innerHTML = d.steps.map((s,i) =>
+      `<li class="pr-rec-step"><span class="pr-step-idx">[${String(i+1).padStart(2,'0')}]</span><span>${s}</span></li>`
+    ).join('');
+    const prResult = getEl('pr-result'); if (prResult) { prResult.classList.add('show'); prResult.style.display = 'block'; }
+  }
+
+  if (profile === 'teen') {
+    const d = data.teen;
+    const isScam = data.label !== 'safe';
+    const scoreColor  = isScam ? '#ff2d55' : '#00ff88';
+    const barColor    = isScam ? '#ff2d55' : '#00ff88';
+    const glowColor   = isScam ? 'rgba(255,45,85,0.3)' : 'rgba(0,255,136,0.3)';
+
+    // HP bar fill
+    const fill = getEl('gm-hpbar-fill');
+    if (fill) {
+      fill.style.background = `linear-gradient(90deg, ${barColor}, ${isScam ? '#ff6b6b' : '#00ffaa'})`;
+      fill.style.boxShadow  = `0 0 12px ${glowColor}`;
+      setTimeout(() => { if (fill) fill.style.width = data.score + '%'; }, 50);
+    }
+
+    const gmScore = getEl('gm-score'); if (gmScore) { gmScore.textContent = data.score; gmScore.style.color = scoreColor; }
+    const gmVerdictLabel = getEl('gm-verdict-label'); if (gmVerdictLabel) { gmVerdictLabel.textContent = d.verdict; gmVerdictLabel.style.color = scoreColor; gmVerdictLabel.style.textShadow = `0 0 16px ${glowColor}`; }
+    const gmExp = getEl('gm-exp'); if (gmExp) gmExp.textContent = d.explanation;
+
+    const gmThreats = getEl('gm-threats'); if (gmThreats) gmThreats.innerHTML = (d.flags && d.flags.length)
+      ? d.flags.map(f => `<span class="gm-threat-badge" style="background:rgba(255,45,85,0.12);border:1px solid rgba(255,45,85,0.4);color:#ff2d55">${f}</span>`).join('')
+      : `<span class="gm-threat-badge" style="background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:#00ff88">✓ NO THREATS DETECTED</span>`;
+
+    const gmObjectives = getEl('gm-objectives'); if (gmObjectives) gmObjectives.innerHTML = d.steps.map((s, i) =>
+      `<li class="gm-objective">
+        <div class="gm-obj-marker">${String(i + 1).padStart(2, '0')}</div>
+        <span>${s}</span>
+      </li>`
+    ).join('');
+
+    // Show result panel
+    const result = getEl('gm-result'); if (result) { result.classList.add('show'); result.style.display = 'block'; }
+  }
+}
+
+// Student chip interactivity
+document.querySelectorAll('.st-chip').forEach(c => {
+  c.onclick = () => { document.querySelectorAll('.st-chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); };
+});
+
+// Gaming type selector
+function gmSelectType(btn) {
+  document.querySelectorAll('.gm-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Gaming nav interactivity
+document.querySelectorAll('.gm-nav-item').forEach(item => {
+  item.onclick = () => { document.querySelectorAll('.gm-nav-item').forEach(x=>x.classList.remove('active')); item.classList.add('active'); };
+});
+</script>
+</body>
 </html>

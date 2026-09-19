@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CyberTwin Agent</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; margin: 16px; }
+      textarea { width: 100%; height: 220px; }
+      #result { white-space: pre-wrap; background:#f6f6f6; padding:8px; margin-top:8px; max-height:300px; overflow:auto }
+      .row { display:flex; gap:8px; }
+    </style>
+  </head>
+  <body>
+    <h2>CyberTwin — Local Agent</h2>
+    <p>Paste text or open a local file. Analysis runs locally on your device and is not uploaded by default.</p>
+
+    <div class="row">
+      <button id="openFile">Open file…</button>
+      <button id="clear">Clear</button>
+      <select id="profile">
+        <option value="professional">Professional</option>
+        <option value="senior">Senior</option>
+        <option value="student">Student</option>
+        <option value="teen">Teen</option>
+      </select>
+    </div>
+
+    <div style="margin-top:8px;">
+      <label><input type="checkbox" id="uploadsToggle" /> Enable uploads (opt-in)</label>
+      <div style="font-size:12px;color:#666">Uploads are disabled by default. Enabling will prompt for confirmation.</div>
+    </div>
+
+    <textarea id="input" placeholder="Paste email or message text here"></textarea>
+    <div class="row">
+      <button id="analyze">Analyze locally</button>
+    </div>
+
+    <div id="status"></div>
+    <div id="result" style="display:none"></div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

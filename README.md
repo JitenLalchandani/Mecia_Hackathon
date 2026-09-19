@@ -184,6 +184,27 @@ cybertwin/
 | POST | `/api/network-scan/domains/:id/scan` | Start Nmap scan |
 | GET  | `/api/network-scan/domains/results/:scanId` | Poll scan result |
 
+## Gmail Integration (OAuth & IMAP)
+
+CyberTwin can connect to a user's Gmail account to fetch messages for automated scanning. For prototype and security the server stores only an encrypted refresh token — message content is fetched on-demand and not persisted unless the user explicitly saves an investigation.
+
+Required environment variables (backend/.env):
+
+```
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_OAUTH_REDIRECT=https://your-backend.example.com/api/integrations/google/callback
+ENCRYPTION_KEY=32+ char secret used to encrypt tokens
+```
+
+Notes & security considerations:
+- Tokens are encrypted using AES-256-GCM with `ENCRYPTION_KEY`. Keep this key secret and rotate if compromised.
+- The OAuth state parameter is a short-lived JWT bound to the logged-in user to prevent CSRF.
+- Scanned message snippets are not stored by default; only analysed results saved when a user explicitly creates an investigation.
+- In production, serve backend over HTTPS and set `GOOGLE_OAUTH_REDIRECT` to an HTTPS endpoint under your domain.
+- For privacy-first deployments, consider building an Electron or mobile app that performs analysis locally and never uploads message content.
+
+
 ---
 
 ## Pitch demo flow (August 8th)

@@ -12,7 +12,11 @@ const profileRoutes = require('./routes/profile.routes');
 const reportRoutes = require('./routes/report.routes');
 const trustCircleRoutes = require('./routes/trustCircle.routes');
 const networkScanRoutes = require('./routes/networkScan.routes');
+const publicScanRoutes = require('./routes/publicScan.routes');
+const googleIntegrationRoutes = require('./routes/googleIntegration.routes');
+const auditRoutes = require('./routes/audit.routes');
 const { errorHandler } = require('./middleware/error.middleware');
+const { auditLogger } = require('./middleware/audit.middleware');
 
 const app = express();
 
@@ -38,6 +42,9 @@ app.use('/api/', limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Audit logger (records authenticated user actions into tamper-evident logs)
+app.use(auditLogger());
+
 // Logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -60,6 +67,9 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/trust-circle', trustCircleRoutes);
 app.use('/api/network-scan/domains', networkScanRoutes);
+app.use('/api/public', publicScanRoutes);
+app.use('/api/integrations/google', googleIntegrationRoutes);
+app.use('/api/audit', auditRoutes);
 
 // 404 handler
 app.use((req, res) => {
