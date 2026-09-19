@@ -7,7 +7,7 @@ const PROFILE_TYPES = [
   { value: 'senior', label: '👴 Senior', desc: 'Larger text, simpler guidance' },
   { value: 'student', label: '🎓 Student', desc: 'Casual, quick alerts' },
   { value: 'professional', label: '💼 Professional', desc: 'Technical, compact' },
-  { value: 'teen', label: '🧑 Teen', desc: 'Bold, direct warnings' }
+  { value: 'teen', label: '🎮 Teen Gamer', desc: 'Neon, game-style scam alerts' }
 ];
 
 const RegisterPage = () => {

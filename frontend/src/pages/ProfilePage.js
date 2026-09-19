@@ -9,7 +9,7 @@ const PROFILE_TYPES = [
   { value: 'senior',       emoji: '👴', label: 'Senior',       desc: 'Larger text, simpler guidance' },
   { value: 'student',      emoji: '🎓', label: 'Student',      desc: 'Casual tone, quick alerts' },
   { value: 'professional', emoji: '💼', label: 'Professional', desc: 'Technical, compact view' },
-  { value: 'teen',         emoji: '🧑', label: 'Teen',         desc: 'Bold, direct warnings' },
+  { value: 'teen',         emoji: '🎮', label: 'Teen Gamer',   desc: 'Neon alerts, bold game-style warnings' },
 ];
 
 const StatBox = ({ icon: Icon, label, value, color }) => (
