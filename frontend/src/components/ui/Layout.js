@@ -64,7 +64,7 @@ const Layout = ({ children }) => {
                   border: active ? `1px solid ${theme.primaryColor}44` : '1px solid transparent'
                 }}>
                   <Icon size={18} />
-                  {label}
+                  <span className="label">{label}</span>
                 </div>
               </Link>
             );

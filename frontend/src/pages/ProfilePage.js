@@ -67,7 +67,7 @@ const ProfilePage = () => {
 
   return (
     <Layout>
-      <div style={{ maxWidth: 680, margin: '0 auto', padding: '32px 16px' }}>
+      <div className="container" style={{ maxWidth: 760, margin: '0 auto', padding: '28px 16px' }}>
 
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
@@ -86,7 +86,7 @@ const ProfilePage = () => {
             <h2 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12 }}>
               Investigation stats
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10 }}>
+            <div className="stats-grid" style={{ gap: 10 }}>
               <StatBox icon={Shield}        label="Total analyses"  value={stats.total}          color="#0f172a" />
               <StatBox icon={CheckCircle}   label="Safe"            value={stats.safe}            color="#16a34a" />
               <StatBox icon={AlertTriangle} label="Suspicious"      value={stats.suspicious}      color="#d97706" />

@@ -15,6 +15,7 @@ const networkScanRoutes = require('./routes/networkScan.routes');
 const publicScanRoutes = require('./routes/publicScan.routes');
 const googleIntegrationRoutes = require('./routes/googleIntegration.routes');
 const auditRoutes = require('./routes/audit.routes');
+const pushRoutes = require('./routes/push.routes');
 const { errorHandler } = require('./middleware/error.middleware');
 const { auditLogger } = require('./middleware/audit.middleware');
 
@@ -70,6 +71,7 @@ app.use('/api/network-scan/domains', networkScanRoutes);
 app.use('/api/public', publicScanRoutes);
 app.use('/api/integrations/google', googleIntegrationRoutes);
 app.use('/api/audit', auditRoutes);
+app.use('/api/push', pushRoutes);
 
 // 404 handler
 app.use((req, res) => {

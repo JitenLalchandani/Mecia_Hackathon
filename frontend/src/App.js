@@ -11,7 +11,9 @@ import TrustCirclePage from './pages/TrustCirclePage';
 import ReportsPage     from './pages/ReportsPage';
 import NetworkScanPage from './pages/NetworkScanPage';
 import AuditLogsPage   from './pages/AuditLogsPage';
+import AdminPushPage   from './pages/AdminPushPage';
 import './styles/globals.css';
+import InstallPrompt from './components/InstallPrompt';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -28,6 +30,7 @@ const PublicRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <InstallPrompt />
       <Router>
         <Routes>
           <Route path="/"              element={<Navigate to="/dashboard" replace />} />
@@ -41,6 +44,7 @@ function App() {
           <Route path="/network-scan"  element={<PrivateRoute><NetworkScanPage /></PrivateRoute>} />
           <Route path="/audit-logs"    element={<PrivateRoute><AuditLogsPage /></PrivateRoute>} />
           <Route path="/profile"       element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+          <Route path="/admin/push"    element={<PrivateRoute><AdminPushPage /></PrivateRoute>} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -84,11 +84,11 @@ const DashboardPage = () => {
 
   return (
     <Layout>
-      <div
+      <div className="container"
         style={{
-          maxWidth: 800,
+          maxWidth: 1000,
           margin: '0 auto',
-          padding: '32px 16px',
+          padding: '28px 16px',
           background: isTeenTheme ? '#020d0a' : (isDarkTheme ? '#0b1020' : 'transparent'),
           borderRadius: isTeenTheme || isDarkTheme ? 20 : 0,
           boxShadow: isTeenTheme ? '0 0 0 1px rgba(74,252,120,0.2), 0 0 30px rgba(74,252,120,0.08)' : (isDarkTheme ? '0 0 0 1px rgba(124,155,255,0.18), 0 0 22px rgba(124,155,255,0.06)' : 'none'),
@@ -128,14 +128,14 @@ const DashboardPage = () => {
         </Link>
 
         <h2 style={{ fontSize: '0.85rem', fontWeight: 600, color: isTeenTheme ? '#9ae9af' : (isDarkTheme ? '#c7d2fe' : '#64748b'), textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12 }}>Your activity</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 28 }}>
-          <StatCard icon={Shield}        label="Total analyses" value={stats?.total      ?? 0} color={isTeenTheme ? '#4afc78' : (isDarkTheme ? '#7c9bff' : '#0f172a')} loading={loading} />
-          <StatCard icon={CheckCircle}   label="Safe messages"  value={stats?.safe       ?? 0} color={isTeenTheme ? '#7ef0a3' : (isDarkTheme ? '#93c5fd' : '#16a34a')} loading={loading} />
-          <StatCard icon={AlertTriangle} label="Suspicious"     value={stats?.suspicious ?? 0} color={isTeenTheme ? '#facc15' : (isDarkTheme ? '#fbbf24' : '#d97706')} loading={loading} />
-          <StatCard icon={XCircle}       label="Scams caught"   value={scamsCaught}             color={isTeenTheme ? '#ff6b6b' : (isDarkTheme ? '#f472b6' : '#dc2626')} loading={loading} />
+        <div className="stats-grid" style={{ marginBottom: 28 }}>
+          <div className="card"><StatCard icon={Shield}        label="Total analyses" value={stats?.total      ?? 0} color={isTeenTheme ? '#4afc78' : (isDarkTheme ? '#7c9bff' : '#0f172a')} loading={loading} /></div>
+          <div className="card"><StatCard icon={CheckCircle}   label="Safe messages"  value={stats?.safe       ?? 0} color={isTeenTheme ? '#7ef0a3' : (isDarkTheme ? '#93c5fd' : '#16a34a')} loading={loading} /></div>
+          <div className="card"><StatCard icon={AlertTriangle} label="Suspicious"     value={stats?.suspicious ?? 0} color={isTeenTheme ? '#facc15' : (isDarkTheme ? '#fbbf24' : '#d97706')} loading={loading} /></div>
+          <div className="card"><StatCard icon={XCircle}       label="Scams caught"   value={scamsCaught}             color={isTeenTheme ? '#ff6b6b' : (isDarkTheme ? '#f472b6' : '#dc2626')} loading={loading} /></div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 28 }}>
+        <div className="two-col" style={{ marginBottom: 28 }}>
           <Link to="/history" style={{ textDecoration: 'none' }}>
             <div style={{
               background: isTeenTheme ? 'rgba(7, 22, 17, 0.9)' : (isDarkTheme ? 'rgba(11, 16, 32, 0.9)' : '#fff'),

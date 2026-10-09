@@ -133,21 +133,14 @@ const InvestigatePage = () => {
 
   return (
     <Layout>
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '32px 16px' }}>
+      <div className="container" style={{ maxWidth: 920, margin: '0 auto', padding: '28px 16px' }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{
-            width: 56, height: 56, borderRadius: '50%', margin: '0 auto 16px',
-            background: `${theme.primaryColor}15`, display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
+        <div className="page-header">
+          <div className="avatar" style={{ background: `${theme.primaryColor}15` }}>
             <Shield size={28} color={theme.primaryColor} />
           </div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
-            Investigation Engine
-          </h1>
-          <p style={{ color: '#64748b', fontSize: theme.fontSizeClass === 'text-lg' ? '1.1rem' : '0.95rem' }}>
-            {theme.welcomeMessage}
-          </p>
+          <h1>Investigation Engine</h1>
+          <p style={{ fontSize: theme.fontSizeClass === 'text-lg' ? '1.05rem' : '0.95rem' }}>{theme.welcomeMessage}</p>
         </div>
 
         {/* Input card */}
@@ -215,12 +208,13 @@ const InvestigatePage = () => {
         {result && (
           <div className="animate-fade-in">
             {/* Trust Score + Action */}
-            <div style={{
+            <div className="result-grid" style={{
               background: actionInfo?.bg, border: `2px solid ${actionInfo?.border}`,
-              borderRadius: 16, padding: 24, marginBottom: 16,
-              display: 'grid', gridTemplateColumns: '140px 1fr', gap: 24, alignItems: 'center'
+              borderRadius: 16, padding: 20, marginBottom: 16
             }}>
-              <TrustScoreRing score={result.trustScore.score} label={result.trustScore.label} />
+              <div className="trust-ring">
+                <TrustScoreRing score={result.trustScore.score} label={result.trustScore.label} />
+              </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                   {ActionIcon && <ActionIcon size={22} color={actionInfo.color} />}
@@ -281,7 +275,9 @@ const InvestigatePage = () => {
                 </button>
                 {showDetails && (
                   <div style={{ padding: '0 16px 16px' }}>
-                    {result.scamDNA.evidence.map((ev, i) => <EvidenceCard key={i} evidence={ev} />)}
+                    <div className="evidence-list">
+                      {result.scamDNA.evidence.map((ev, i) => <EvidenceCard key={i} evidence={ev} />)}
+                    </div>
                     {result.scamDNA.redFlags?.length > 0 && (
                       <div style={{ marginTop: 12 }}>
                         <p style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748b', marginBottom: 6 }}>Red flags</p>
